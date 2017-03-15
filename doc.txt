@@ -1,0 +1,145 @@
+Dear Student,
+
+Below is some randomised individual data, along with some PARI code and a series of 8 tasks that you need to
+complete for Assignment 1.
+
+Stay tuned as hints will be regularly provided by email to help you complete each task.
+
+More information about this assignment is available in iLearn.
+In particular, see COMP343_assignment1.pdf.
+
+Cheers,
+Christophe
+
+/**********************************/
+/*         SID - 44587643         */
+/**********************************/
+
+/**********************************/
+/*     Part A - Hash Function     */
+/**********************************/
+
+/**********************************/
+/*      Predefined Functions      */
+/**********************************/
+
+\\convert a string of characters to a decimal number based on 7 bit ASCII representation of a character
+{StringToDecimal(S) =
+local(T, V, i, j, tmp);
+T = "";
+V = [];
+for(i = 1, length(S),
+for(j = 32, 127,
+U = Strchr(j);
+tmp = concat(T, U);
+if(S < tmp, V = concat(V, j - 1);T = concat(T, Strchr(j - 1)); break)));
+return(subst(Pol(V),x,128))}
+
+\\list of symbols used for hexadecimal notation
+symbol = ["0","1","2","3","4","5","6","7","8","9","A","B","C","D","E","F","_"];
+
+\\convert a decimal number to hexadecimal notation
+{DecimalToHexa(nb) =
+local(t, w, i);
+if(nb == 0, return(x0),
+w = "";
+t = nb;
+while( t != 0,
+i = t%16;
+t = (t - i)/16;
+w = concat(symbol[i+1], w);
+);
+return(concat("0x",w));
+);
+}
+
+/**********************************/
+/*             Setup              */
+/**********************************/
+
+t = 56
+p = 47687490304404143
+alpha = 8691170756970600
+beta = 36184489036644108
+
+/**********************************/
+/*      Task 1. [15 marks]        */
+/**********************************/
+What is the digest of "B06ugBI2eimb" using the hash function defined with the parameters above?
+
+/**********************************/
+/*      Task 2. [25 marks]        */
+/**********************************/
+
+Find a password whose digest is equal to "0x94A799A991B7D5" using the hash function defined with the parameters above
+
+/**********************************/
+/*      Task 3. [5 marks]         */
+/**********************************/
+
+Find a collision (i.e. two different integers < 2^(2*t-2) which evaluate to the same value) for the hash function defined with the following parameters:
+t = 32
+p = 2180082167
+alpha = 485539736
+beta = 329746418
+
+/**********************************/
+/*      Task 4. [5 marks]         */
+/**********************************/
+
+Find a collision (i.e. two different integers < 2^(2*t-2) which evaluate to the same value) for the hash function defined with the following parameters:
+t = 56
+p = 47687490304404143
+alpha = 8691170756970600
+beta = 36184489036644108
+
+/**********************************/
+/* Part B - Elliptic Curve Crypto */
+/**********************************/
+
+/**********************************/
+/*             Setup              */
+/**********************************/
+
+p = 786831054276193
+a = 692921120522918
+b = 725362064236058
+
+E is defined by: y^2 = x^3 + a*x + b (mod p)
+
+P = [98787801814401, 518250957953530] is a point on E of order 2180082167
+
+Alice's   private key:  nA = 543621061435962
+Alice's   public key :  PA = nA*P = [128024132328419, 627612090815936]
+Bob's     private key:  nB = ?
+Bob's     public key :  PB = nB*P = [784116531451390, 200069360835496]
+Charlie's private key:  nC = ?
+Charlie's public key :  PC = nC*P = [413956329326144, 215813899979711]
+
+/**********************************/
+/*      Task 5. [15 marks]        */
+/**********************************/
+
+Find the point Q with smallest possible x-coordinate > 0 and with corresponding y coordinate < p/2
+Find the point R with largest  possible positive x-coordinate < p and with corresponding y coordinate > p/2
+Compute Q + R
+
+/**********************************/
+/*      Task 6. [25 marks]        */
+/**********************************/
+
+Bob encrypted his birthday and sent it to Alice in the
+form of the following point C = [625780725537395, 168043618295810]
+What is Bob's birthday?
+
+/**********************************/
+/*      Task 7. [5 marks]         */
+/**********************************/
+
+Retrieve Bob's private key
+
+/**********************************/
+/*      Task 8. [5 marks]         */
+/**********************************/
+
+Retrieve Charlie's private key
