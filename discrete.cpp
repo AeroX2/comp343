@@ -20,8 +20,8 @@ void interupt_handler(int s){
 /* Shanks' baby-step giant-step for finding discrete logarithms 
            a^x mod n = y, solve for x
 */
-int main(int argc, char** argv)
-{
+int main(int argc, char** argv) {
+
 	struct sigaction sigIntHandler; 
 	sigIntHandler.sa_handler = interupt_handler;
 	sigemptyset(&sigIntHandler.sa_mask);
@@ -35,18 +35,19 @@ int main(int argc, char** argv)
 	unsigned long n = strtoul(argv[3],NULL,10);
 
     unsigned long s = (unsigned long) ceil(sqrt(n));
-    mpz_class l = a%n;
-	mpz_class o;
-	mpz_class base = a;
-	mpz_class mod = n;
-	mpz_powm_ui(o.get_mpz_t(), base.get_mpz_t(), s, mod.get_mpz_t());
     mpz_class q = y%n;
+    mpz_class l = a%n;
 
 	B.reserve(s);
     for (i=0; i < s; i++) {
         B[q.get_ui()] = i; 
 		q = (q*l)%n;
 	}
+
+	mpz_class o;
+	mpz_class base = a;
+	mpz_class mod = n;
+	mpz_powm_ui(o.get_mpz_t(), base.get_mpz_t(), s, mod.get_mpz_t());
 
 	mpz_class z = o;
 	for (i=0; i < s; i++) {

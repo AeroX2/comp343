@@ -1,6 +1,6 @@
 #!/bin/env python3
 
-#from math import abs
+from math import sqrt
 
 class Curve:
     def __init__(self, a, b, p):
@@ -59,17 +59,43 @@ class Curve:
             i<<=1
         return i
     
+    def lowest_x(self):
+        x = 1;
+        y = sqrt((x**3 + self.a*x + self.b) % self.p)
+        y = sqrt((pow(x,3,self.p) + (self.a%self.p*x%self.p)%self.p + self.b%self.p) % self.p)
+        while (y >= self.p/2):
+            y = sqrt((x**3 + self.a*x + self.b) % self.p)
+            y = sqrt((pow(x,3,self.p) + (self.a%self.p*x%self.p)%self.p + self.b%self.p) % self.p)
+            x += 1
+        return x,y;
+
+    def highest_x(self):
+        x = self.p-1;
+        y = sqrt((x**3 + self.a*x + self.b) % self.p)
+        while (y <= self.p/2):
+            y = sqrt((pow(x,3,self.p) + (self.a%self.p*x%self.p)%self.p + self.b%self.p) % self.p)
+            x -= 1
+        return x,y;
+
+
+    
 p = 786831054276193
 a = 692921120522918
 b = 725362064236058
 E = Curve(a,b,p)
+
+print(E.lowest_x());
+print(E.highest_x());
+
 #P =                [98787801814401, 518250957953530] is a point on E of order 786831073953473
-test = (E.add(      (98787801814401, 518250957953530), (98787801814401, 518250957953530)))
-print(test)
-test = (E.add(test, (98787801814401, 518250957953530)))
-print(test)
-test = (E.add(test, (98787801814401, 518250957953530)))
-print(test)
-print(E.mul((98787801814401, 518250957953530), 547))
-print(E.mul((98787801814401, 518250957953530), 786831073953473))
-print(E.order((98787801814401, 518250957953530)))
+#test = (E.add(      (98787801814401, 518250957953530), (98787801814401, 518250957953530)))
+#print(test)
+#test = (E.add(test, (98787801814401, 518250957953530)))
+#print(test)
+#test = (E.add(test, (98787801814401, 518250957953530)))
+#print(test)
+#print(E.mul((98787801814401, 518250957953530), 547))
+#print(E.mul((98787801814401, 518250957953530), 786831073953473))
+#print(E.order((98787801814401, 518250957953530)))
+
+
