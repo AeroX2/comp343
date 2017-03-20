@@ -136,6 +136,7 @@ def find_conflicts(string):
     big = pow(2,t-1);
 
     pairs = get_pairs(factors);
+    print(len(pairs))
     for pair in pairs:
         yield process(pair);
     #return Pool().map(process, pairs)
@@ -145,15 +146,21 @@ p = 47687490304404143
 alpha = 8691170756970600
 beta = 36184489036644108
 
-#t = 32
-#p = 2180082167
-#alpha = 485539736
-#beta = 329746418
+t = 32
+p = 2180082167
+alpha = 485539736
+beta = 329746418
+
+t = 56
+p = 37451107078632179
+alpha = 29205075336433896
+beta = 5456772618543572
 
 potentials = []
 winners = []
 
 string = input("String: ")
+hash(string)
 conflicts = find_conflicts(string)
 for conflict in conflicts:
     if conflict is None:

@@ -107,7 +107,7 @@ b = 725362064236058
 
 E is defined by: y^2 = x^3 + a*x + b (mod p)
 
-P = [98787801814401, 518250957953530] is a point on E of order 2180082167
+P = [98787801814401, 518250957953530] is a point on E of order 786831073953473
 
 Alice's   private key:  nA = 543621061435962
 Alice's   public key :  PA = nA*P = [128024132328419, 627612090815936]
