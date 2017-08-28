@@ -13,13 +13,13 @@ using spp::sparse_hash_map;
 
 unsigned int i = 0;
 void interupt_handler(int s){
-   printf("Caught signal %d, currently at %d\n",s,i);
-   exit(1); 
+	printf("Caught signal %d, currently at %d\n",s,i);
+	exit(1); 
 }
 
 /* Shanks' baby-step giant-step for finding discrete logarithms 
-           a^x mod n = y, solve for x
-*/
+   a^x mod n = y, solve for x
+   */
 int main(int argc, char** argv) {
 
 	struct sigaction sigIntHandler; 
@@ -34,13 +34,13 @@ int main(int argc, char** argv) {
 	unsigned long a = strtoul(argv[2],NULL,10);
 	unsigned long n = strtoul(argv[3],NULL,10);
 
-    unsigned long s = (unsigned long) ceil(sqrt(n));
-    mpz_class q = y%n;
-    mpz_class l = a%n;
+	unsigned long s = (unsigned long) ceil(sqrt(n));
+	mpz_class q = y%n;
+	mpz_class l = a%n;
 
 	B.reserve(s);
-    for (i=0; i < s; i++) {
-        B[q.get_ui()] = i; 
+	for (i=0; i < s; i++) {
+		B[q.get_ui()] = i; 
 		q = (q*l)%n;
 	}
 
@@ -53,13 +53,13 @@ int main(int argc, char** argv) {
 	for (i=0; i < s; i++) {
 		auto test = B.find(z.get_ui());
 		if (test != B.end()) {
-            unsigned long r = test->second;
-            unsigned long st = (i + 1) * s;
+			unsigned long r = test->second;
+			unsigned long st = (i + 1) * s;
 			std::cout << st - r << std::endl;
 			break;
 		}
-        z = (z*o)%n;
+		z = (z*o)%n;
 	}
 
-    return 0;
+	return 0;
 }
